@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: homework
+
+  data:
+    mongodb:
+      uri: mongodb://admin:admin@localhost:27017/homework?authSource=admin
+
+istanbul:
+  tech:
+    jwt:
+      Secret: SaK_SaU_BBF_CS_BlABlAaLbaLb_SecretKey_2024_2025_bilgisayar_muhendisligi_tasarimi_54_halep_iskenderiye
+      expirationHours: 24
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
