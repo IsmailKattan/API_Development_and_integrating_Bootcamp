@@ -41,7 +41,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                         null
                 )
         );
-        System.out.println("sysUser.username = " + sysUser.getUsername());
         return new User(
                 sysUser.getUsername(),
                 sysUser.getPassword(),

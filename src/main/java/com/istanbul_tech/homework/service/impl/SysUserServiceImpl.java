@@ -1,5 +1,6 @@
 package com.istanbul_tech.homework.service.impl;
 
+import com.istanbul_tech.homework.dto.AddressDto;
 import com.istanbul_tech.homework.dto.LoginDto;
 import com.istanbul_tech.homework.dto.ToRegisterUserDto;
 import com.istanbul_tech.homework.dto.UserDto;
@@ -9,8 +10,10 @@ import com.istanbul_tech.homework.exception.custom.UsernameNotFoundException;
 import com.istanbul_tech.homework.model.SysUser;
 import com.istanbul_tech.homework.repo.SysUserRepository;
 import com.istanbul_tech.homework.security.jwt.JwtUtils;
+import com.istanbul_tech.homework.service.AddressService;
 import com.istanbul_tech.homework.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,8 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
+
+
 
     @Autowired
     private SysUserRepository sysUserRepository;
@@ -43,6 +48,14 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+
+    private AddressService addressService;
+
+    @Autowired
+    public void setAddressService(@Lazy AddressService addressService) {
+        this.addressService = addressService;
+    }
 
     @Override
     public ApiResponse register(ToRegisterUserDto toRegisterUserDto) {
@@ -85,15 +98,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public ApiResponse login(LoginDto loginDto) {
-        // check if user exists
-        if (!sysUserRepository.existsByUsername(loginDto.getUsername())) {
-            throw new UsernameNotFoundException(
-                    null,
-                    Map.of("username", loginDto.getUsername()),
-                    "UserService",
-                    null
-            );
-        }
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDto.getUsername(),
@@ -125,9 +129,83 @@ public class SysUserServiceImpl implements SysUserService {
                 )
                 .httpCode(HttpStatus.OK.value())
                 .build();
-
-
-
-
     }
+
+    @Override
+    public ApiResponse getUser(String username) {
+        SysUser sysUser = sysUserRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException(
+                        null,
+                        Map.of("username", username),
+                        "UserService",
+                        null
+                )
+        );
+        // get user addresses from address service
+        List<AddressDto> addresses = addressService.getAddressListOfUser(sysUser.getId());
+        return ApiResponse.builder()
+                .httpStatus(HttpStatus.OK.name())
+                .message("User retrieved successfully")
+                .data(
+                        UserDto.builder()
+                                .id(sysUser.getId())
+                                .username(sysUser.getUsername())
+                                .name(sysUser.getName())
+                                .surname(sysUser.getSurname())
+                                .email(sysUser.getEmail())
+                                .phone(sysUser.getPhone())
+                                .addresses(addresses)
+                                .build()
+                )
+                .httpCode(HttpStatus.OK.value())
+                .build();
+    }
+
+    @Override
+    public ApiResponse updateUser(String username, ToRegisterUserDto toRegisterUserDto) {
+        // get user
+        SysUser sysUser = sysUserRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException(
+                        null,
+                        Map.of("username", username),
+                        "UserService",
+                        null
+                )
+        );
+        // update user
+        sysUser.setName(toRegisterUserDto.getName());
+        sysUser.setSurname(toRegisterUserDto.getSurname());
+        sysUser.setEmail(toRegisterUserDto.getEmail());
+        sysUser.setPhone(toRegisterUserDto.getPhone());
+        sysUserRepository.save(sysUser);
+        return ApiResponse.builder()
+                .httpStatus(HttpStatus.OK.name())
+                .message("User updated successfully")
+                .data(
+                        UserDto.builder()
+                                .id(sysUser.getId())
+                                .username(sysUser.getUsername())
+                                .name(sysUser.getName())
+                                .surname(sysUser.getSurname())
+                                .email(sysUser.getEmail())
+                                .phone(sysUser.getPhone())
+                                .build()
+                )
+                .httpCode(HttpStatus.OK.value())
+                .build();
+    }
+
+    @Override
+    public String getUserIdByUsername(String username) {
+        SysUser sysUser = sysUserRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException(
+                        null,
+                        Map.of("username", username),
+                        "UserService",
+                        null
+                )
+        );
+        return sysUser.getId();
+    }
+
 }

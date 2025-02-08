@@ -12,6 +12,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -59,8 +61,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> {
                             auth.requestMatchers(
-                                    "/api/user/register",
-                                    "/api/user/login",
+                                    "/api/users/register",
+                                    "/api/users/login",
                                     "/v3/api-docs/**",
                                     "/swagger-ui/**",
                                     "/swagger-ui.html",
@@ -70,8 +72,8 @@ public class SecurityConfig {
                         }
                 ).exceptionHandling(
                         ex -> {
-                            // ex.authenticationEntryPoint(jwtAuthenticationEntryPoint);
-                            // ex.accessDeniedHandler(customAccessDeniedHandler);
+                             ex.authenticationEntryPoint(jwtAuthenticationEntryPoint);
+                             ex.accessDeniedHandler(customAccessDeniedHandler);
                         }
                 );
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

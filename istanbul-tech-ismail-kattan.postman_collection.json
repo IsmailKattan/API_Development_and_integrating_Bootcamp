@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "6f28f736-df47-407e-9e99-162a587dd129",
+		"name": "istanbul-tech-ismail-kattan",
+		"description": "Endpoints of profile management service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33427712",
+		"_collection_link": "https://gorevce.postman.co/workspace/gorevce~54e9cdb0-6684-45ca-8027-3e193fe12709/collection/33427712-6f28f736-df47-407e-9e99-162a587dd129?action=share&source=collection_link&creator=33427712"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"ismail\",\r\n  \"surname\": \"kattan\",\r\n  \"email\": \"ismailkattan.contact@gmail.com\",\r\n  \"phone\": \"+905314326118\",\r\n  \"password\": \"user123\",\r\n  \"username\": \"sml-kttn\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				},
+				"description": "Use this endpoint to regiser"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"sml-kttn\",\r\n  \"password\": \"user123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				},
+				"description": "Use this endpoint to login"
+			},
+			"response": []
+		},
+		{
+			"name": "get profile",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzbWwta3R0biIsImlhdCI6MTczODk3NjgwMCwiZXhwIjoxNzM5MDYzMjAwfQ.T2Lm1_UizOuR3ne_GOCp8MwEbR23RwC9sJsghPDVh_CyQXjm8LXlf1zEhvcdvx5caE_CztaKvHVUX_dSszcQRA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/users/user/sml-kttn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"user",
+						"sml-kttn"
+					]
+				},
+				"description": "Use this endpoint to retrieve profile"
+			},
+			"response": []
+		},
+		{
+			"name": "update profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzbWwta3R0biIsImlhdCI6MTczODk3NjgwMCwiZXhwIjoxNzM5MDYzMjAwfQ.T2Lm1_UizOuR3ne_GOCp8MwEbR23RwC9sJsghPDVh_CyQXjm8LXlf1zEhvcdvx5caE_CztaKvHVUX_dSszcQRA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"iso\",\r\n  \"surname\": \"katan\",\r\n  \"email\": \"smlkttn836@gmail.com\",\r\n  \"phone\": \"+905314326118\",\r\n  \"password\": \"user123\",\r\n  \"username\": \"sml-kttn\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/user/sml-kttn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"user",
+						"sml-kttn"
+					]
+				},
+				"description": "Use this endpoint to update profile\n\n**can't update address in this endpoint**"
+			},
+			"response": []
+		},
+		{
+			"name": "create address",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzbWwta3R0biIsImlhdCI6MTczODk3NjgwMCwiZXhwIjoxNzM5MDYzMjAwfQ.T2Lm1_UizOuR3ne_GOCp8MwEbR23RwC9sJsghPDVh_CyQXjm8LXlf1zEhvcdvx5caE_CztaKvHVUX_dSszcQRA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": null,\r\n  \"city\": \"string\",\r\n  \"district\": \"string\",\r\n  \"street\": \"string\",\r\n  \"no\": \"string\",\r\n  \"zipCode\": \"string\",\r\n  \"userId\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/addresses/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addresses",
+						"create"
+					]
+				},
+				"description": "Use this endpoint to create address"
+			},
+			"response": []
+		},
+		{
+			"name": "get user addresses",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzbWwta3R0biIsImlhdCI6MTczODk3NjgwMCwiZXhwIjoxNzM5MDYzMjAwfQ.T2Lm1_UizOuR3ne_GOCp8MwEbR23RwC9sJsghPDVh_CyQXjm8LXlf1zEhvcdvx5caE_CztaKvHVUX_dSszcQRA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/addresses/user/sml-kttn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addresses",
+						"user",
+						"sml-kttn"
+					]
+				},
+				"description": "use this endpoint to retrieve user addresses"
+			},
+			"response": []
+		},
+		{
+			"name": "get adress",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzbWwta3R0bjIiLCJpYXQiOjE3MzkwMjcyMjAsImV4cCI6MTczOTExMzYyMH0.Qu-BmBB4YFgjBD1zs7WuRimZDl_UUQ67ua803eTUbP1yVrtFEhLtufLcPTkEV4AAq30zIgCHZ6FxdBVrPj8VtA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/addresses/address/67a77361296a785aa311767a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addresses",
+						"address",
+						"67a77361296a785aa311767a"
+					]
+				},
+				"description": "use this endpoint to retrieve an address"
+			},
+			"response": []
+		},
+		{
+			"name": "update address",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzbWwta3R0bjIiLCJpYXQiOjE3MzkwMjcyMjAsImV4cCI6MTczOTExMzYyMH0.Qu-BmBB4YFgjBD1zs7WuRimZDl_UUQ67ua803eTUbP1yVrtFEhLtufLcPTkEV4AAq30zIgCHZ6FxdBVrPj8VtA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"city\": \"string\",\r\n  \"district\": \"string\",\r\n  \"street\": \"string\",\r\n  \"no\": \"string\",\r\n  \"zipCode\": \"string\",\r\n  \"userId\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/addresses/address/67a77361296a785aa311767a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addresses",
+						"address",
+						"67a77361296a785aa311767a"
+					]
+				},
+				"description": "Use this endpoint to update address"
+			},
+			"response": []
+		},
+		{
+			"name": "delete address",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzbWwta3R0bjIiLCJpYXQiOjE3MzkwMjcyMjAsImV4cCI6MTczOTExMzYyMH0.Qu-BmBB4YFgjBD1zs7WuRimZDl_UUQ67ua803eTUbP1yVrtFEhLtufLcPTkEV4AAq30zIgCHZ6FxdBVrPj8VtA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/addresses/address/67a77361296a785aa311767a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addresses",
+						"address",
+						"67a77361296a785aa311767a"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Use this endpoint to delete address"
+			},
+			"response": []
+		}
+	]
+}
